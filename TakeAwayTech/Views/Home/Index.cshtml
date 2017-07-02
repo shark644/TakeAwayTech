@@ -1,0 +1,58 @@
+﻿<div class="jumbotron">
+    <h1>Take-away Tech Test</h1>
+</div>
+<form id="amount-parsing">
+    <div class="row">
+
+        <label for="amount">Your Name:</label>
+        <br />
+        <input type="text" name="name" id="name" />
+        e.g. John Smith
+    </div>
+    <div class="row">
+        <label for="amount">Amount in numbers (1-8 digits with 2 decimal places)</label>
+        <br />
+        <input type="text" class="amount" name="amount" id="amount" onkeyup="validate.call(this);" />
+        e.g. 45899.90
+    </div>
+    <div class="row">
+        <br />
+        <br />
+        <input type="button" value="Search" id="button_search" onclick="find();" />
+        <p id="amountInWords" />
+    </div>
+</form>
+
+<script>
+    var uri = '/api/amount';
+
+    function find() {
+        var amount = $('#amount').val();
+        var name = $('#name').val();
+
+        if (amount) {
+            $.getJSON(uri + '/' + amount + '/')
+          .done(function (data) {
+              $('#amountInWords').html('<div> Output: ' + name + '<br/>"' + data + '"</div>');
+          })
+          .fail(function (jqXHR, textStatus, err) {
+              $('#amountInWords').text('Error: ' + err);
+          });
+        } else {
+            $('#amountInWords').text('Error: No a valid amount');
+        }
+    }
+
+    var validate = function () {
+        var val = $(this).val();
+        var regexTest = /^\d{0,8}(\.\d{1,2})?$/;
+        var ok = regexTest.test(val);
+        if (ok) {
+            $(this).css('background-color', 'white');
+            $("#button_search").prop("disabled", false);
+        } else {
+            $(this).css('background-color', 'red');
+            $("#button_search").prop("disabled", true);
+        }
+    }
+</script>
