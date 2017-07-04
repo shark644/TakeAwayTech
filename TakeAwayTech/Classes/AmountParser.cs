@@ -117,7 +117,7 @@ namespace TakeAwayTech.Classes
             isStarted = true;
 
             //first digit of 3 digits
-            if (number > 100)
+            if (number > 99)
             {
                 var num1 = number / 100;
                 if (num1 > 0)
@@ -132,7 +132,7 @@ namespace TakeAwayTech.Classes
                 {
                     var num3 = num2 / 10;
                     var num4 = num2 % 10;
-                    text += (unit == 0 && number > 100) ? _textsLevelOne[num3].AppendWithSpace().AppendWithAnd() : _textsLevelOne[num3].AppendWithSpace();
+                    text += (unit == 0 && number > 99) ? _textsLevelOne[num3].AppendWithSpace().AppendWithAnd() : _textsLevelOne[num3].AppendWithSpace();
                     //And 3rd digit is not zero
                     if (num4 > 0)
                     {
@@ -142,7 +142,7 @@ namespace TakeAwayTech.Classes
                 //When number is less than 20
                 else
                 {
-                    text += (unit == 0 && number > 100) ? _textsLevelZero[num2].AppendWithSpace().AppendWithAnd() : _textsLevelZero[num2].AppendWithSpace();
+                    text += (unit == 0 && number > 99) ? _textsLevelZero[num2].AppendWithSpace().AppendWithAnd() : _textsLevelZero[num2].AppendWithSpace();
                 }
             }
 
